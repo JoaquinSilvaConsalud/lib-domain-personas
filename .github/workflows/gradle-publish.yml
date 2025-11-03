@@ -45,6 +45,14 @@ jobs:
         id: get_token
         run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
 
+      - name: 🕵️ DEBUG - Verificar permisos de IAM en el Repositorio
+        run: |
+          echo "Verificando la política de IAM para el repositorio mvn-consalud:"
+          gcloud artifacts repositories get-iam-policy mvn-consalud \
+            --project=ethereal-brace-475715-d0 \
+            --location=southamerica-west1 \
+            --format=json
+
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
 
