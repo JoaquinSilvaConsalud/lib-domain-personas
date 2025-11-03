@@ -33,8 +33,15 @@ jobs:
         with:
           workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
           service_account: 'artifact-publisher@ethereal-brace-475715-d0.iam.gserviceaccount.com'
-          
-          scopes: 'https://www.googleapis.com/auth/cloud-platform'
+
+      - name: ☁️ Set up gcloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: 'ethereal-brace-475715-d0'
+
+      - name: 🔑 Get GCP Access Token
+        id: get_token
+        run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
@@ -43,4 +50,4 @@ jobs:
         run: ./gradlew publish
         env:
           gcpArtifactRegistryUsername: oauth2accesstoken 
-          gcpArtifactRegistryPassword: ${{ steps.auth.outputs.access_token }}
+          gcpArtifactRegistryPassword: ${{ steps.get_token.outputs.token }}
