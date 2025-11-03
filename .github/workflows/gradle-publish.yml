@@ -34,7 +34,7 @@ jobs:
           workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
           service_account: 'github-actions@ethereal-brace-475715-d0.iam.gserviceaccount.com'
           
-          scopes: 'https://www.googleapis.com/auth/cloud-platform'
+          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
 
       - name: ☁️ Set up gcloud SDK
         uses: google-github-actions/setup-gcloud@v2
