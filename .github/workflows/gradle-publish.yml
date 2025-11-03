@@ -1,0 +1,46 @@
+name: Gradle Build & Publish to Artifact Registry
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write' 
+
+    steps:
+      - name: ⚙️ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛠️ Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21' 
+          cache: 'gradle'
+
+
+      - name: 🔐 Authenticate to Google Cloud
+        id: auth
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
+          service_account: 'artifact-publisher@ethereal-brace-475715-d0.iam.gserviceaccount.com' 
+
+      - name: 🔑 Get GCP Access Token
+        id: get_token
+        run: echo "::set-output name=token::$(gcloud auth print-access-token)"
+
+      - name: 📦 Gradle Build & Run Tests
+        run: ./gradlew build pitest -x publish
+
+      - name: 📤 Publish to GAR
+        run: ./gradlew publish
+        env:
+          gcpArtifactRegistryUsername: oauth2accesstoken 
+          gcpArtifactRegistryPassword: ${{ steps.get_token.outputs.token }}
