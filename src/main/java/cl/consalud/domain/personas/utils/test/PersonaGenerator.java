@@ -72,16 +72,8 @@ public class PersonaGenerator {
         }
 
         var cuentasIndividuales = new ArrayList<CuentaIndividual>();
-        for (int i = 0; i < random.nextInt(1, 4); i++) {
-            CuentaIndividual nueva = makeValidCuentaIndividual();
-
-            boolean existeTipo = cuentasIndividuales.stream()
-                    .anyMatch(c -> c.getTipo() == nueva.getTipo());
-
-            if (!existeTipo) {
-                cuentasIndividuales.add(nueva);
-            }
-        }
+        CuentaIndividual nueva = makeValidCuentaIndividual();
+        cuentasIndividuales.add(nueva);
 
         var contactos = new ArrayList<Contacto>();
         var primNom = nombres.getFirst();
