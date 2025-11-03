@@ -37,7 +37,7 @@ jobs:
 
       - name: 🔑 Get GCP Access Token
         id: get_token
-        run: echo "::set-output name=token::$(gcloud auth print-access-token)"
+        run: echo "token::$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
