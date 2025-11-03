@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Ana",
+    "Clara"
+  ],
+  "apellidos": [
+    {
+      "texto": "Souza",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Lima",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Ana Clara Souza Lima",
+  "textoOriginal": "Ana Clara Souza Lima"
+}

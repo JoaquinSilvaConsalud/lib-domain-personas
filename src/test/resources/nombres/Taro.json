@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Tarō"
+  ],
+  "apellidos": [
+    {
+      "texto": "Yamada",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Tarō Yamada",
+  "textoOriginal": "山田 太郎"
+}

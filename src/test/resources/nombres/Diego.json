@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Diego",
+    "Armando"
+  ],
+  "apellidos": [
+    {
+      "texto": "Ruiz",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "Martínez",
+      "tipo": "MATERNO",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Diego Armando Ruiz Martínez",
+  "textoOriginal": "Diego Armando Ruiz Martínez"
+}

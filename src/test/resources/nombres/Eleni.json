@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Eleni"
+  ],
+  "apellidos": [
+    {
+      "texto": "Papadopoulou",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Nikolaidou",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Eleni Papadopoulou Nikolaidou",
+  "textoOriginal": "Ελένη Παπαδοπούλου Νικολαΐδου"
+}

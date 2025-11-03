@@ -1,0 +1,20 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Thị",
+    "Minh",
+    "Hoa"
+  ],
+  "apellidos": [
+    {
+      "texto": "Nguyễn",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Thị Minh Hoa Nguyễn",
+  "textoOriginal": "阮氏明花"
+}

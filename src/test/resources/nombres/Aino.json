@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Aino"
+  ],
+  "apellidos": [
+    {
+      "texto": "Kallio",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Virtanen",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Aino Kallio Virtanen",
+  "textoOriginal": "Aino Kallio Virtanen"
+}

@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Xiaolong"
+  ],
+  "apellidos": [
+    {
+      "texto": "Zhang",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "Li",
+      "tipo": "MATERNO",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Xiaolong Zhang Li",
+  "textoOriginal": "张李小龙"
+}

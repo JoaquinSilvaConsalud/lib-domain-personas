@@ -1,0 +1,177 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '3.5.5' apply false
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'info.solidsoft.pitest' version '1.19.0-rc.1'
+    id 'jacoco'
+}
+
+group = 'cl.consalud'
+version = '0.0.2-SNAPSHOT'
+description = 'Clases de dominio Personas'
+
+wrapper {
+    gradleVersion = '9.1.0'
+    distributionType = Wrapper.DistributionType.BIN
+}
+
+ext {
+
+    set('jacksonVersion', "2.20.0")
+    set('jacksonAnnotationVersion', "2.20")
+    set('mapStructVersion', "1.6.3")
+    set('dataFakerVersion', "2.5.1")
+
+}
+
+java {
+
+    compileJava {
+        options.release = 21
+        options.encoding = 'UTF-8'
+        options.compilerArgs += [
+                "-parameters",
+                '-Amapstruct.defaultComponentModel=spring',
+                '-Amapstruct.suppressGeneratorTimestamp=true'
+        ]
+    }
+
+    compileTestJava {
+        options.release = 21
+        options.encoding = 'UTF-8'
+        options.compilerArgs += [
+                "-parameters",
+                '-Amapstruct.defaultComponentModel=spring',
+                '-Amapstruct.suppressGeneratorTimestamp=true'
+        ]
+    }
+
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+
+    withSourcesJar()
+    //withJavadocJar()
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext.azure = {
+    maven {
+        url = 'https://devops.consalud.net/Consalud/NuevoCore/_packaging/NuevoCore/maven/v1'
+        name = 'NuevoCore'
+        credentials {
+            username = findProperty("consaludAzureUser")
+            password = findProperty("consaludAzurePAT")
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
+    }
+}
+
+repositories azure
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = "cl.consalud"
+            artifactId = "lib-domain-personas"
+            version = "0.0.2-SNAPSHOT"
+            from components.java
+        }
+    }
+    repositories azure
+}
+
+configurations.configureEach {
+    resolutionStrategy.eachDependency { dep ->
+        if (dep.requested.group == "org.apache.commons" && dep.requested.name == "commons-lang3") {
+            if (dep.requested.version == null || dep.requested.version < "3.18.0") {
+                dep.useVersion "3.18.0"
+                dep.because("Force minimum commons-lang3 version to 3.18.0")
+            }
+        }
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom SpringBootPlugin.BOM_COORDINATES
+    }
+}
+
+dependencies {
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    implementation "com.aventrix.jnanoid:jnanoid:2.0.0"
+
+    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonAnnotationVersion}"
+
+    implementation "net.datafaker:datafaker:${dataFakerVersion}"
+
+
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    implementation "org.mapstruct:mapstruct:${mapStructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    testCompileOnly 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation "org.mapstruct:mapstruct:${mapStructVersion}"
+    testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapStructVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation platform('org.junit:junit-bom:5.10.3')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    pitest 'io.github.wmaarts:pitest-mutation-testing-elements-plugin:0.6.5'
+}
+
+pitest {
+    junit5PluginVersion.set('1.2.3')
+    targetClasses.set(['cl.consalud.domain.personas.*', 'cl.consalud.domain.common.*'])
+    targetTests.set(['cl.consalud.domain.personas.*', 'cl.consalud.domain.common.*'])
+    threads.set(8)
+    jvmArgs.set(['-Xmx1024m'])
+    timestampedReports.set(false)
+    mutators.set(['STRONGER', 'CONSTRUCTOR_CALLS'])
+    verbose.set(false)
+    failWhenNoMutations.set(false)
+    avoidCallsTo.set(['org.apache.logging', 'org.slf4j'])
+    excludedTestClasses.set(['**.*IntegrationTest'])
+    outputFormats.set(['HTML', 'XML', 'HTML2', 'JSON'])
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+        xml.outputLocation = layout.buildDirectory.dir("reports/jacoco/xml/coverage.xml").get().asFile
+        html.required = true
+        html.outputLocation = layout.buildDirectory.dir("reports/jacoco/html")
+    }
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}

@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Prawit"
+  ],
+  "apellidos": [
+    {
+      "texto": "Chaiwat",
+      "tipo": "UNICO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Prawit Chaiwat",
+  "textoOriginal": "ประวิทย์ ชัยวัฒน์"
+}

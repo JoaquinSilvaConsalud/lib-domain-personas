@@ -1,0 +1,25 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Laila"
+  ],
+  "apellidos": [
+    {
+      "texto": "bint Ahmed",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "al-Harbi",
+      "tipo": "TRIBAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [
+    "PhD"
+  ],
+  "texto": "Laila bint Ahmed al-Harbi PhD",
+  "textoOriginal": "ليلى بنت أحمد الحربي"
+}

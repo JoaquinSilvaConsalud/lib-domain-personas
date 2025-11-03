@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Jonathan",
+    "Edward"
+  ],
+  "apellidos": [
+    {
+      "texto": "Harrington",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [
+    "Sir"
+  ],
+  "sufijos": [
+    "OBE",
+    "PhD"
+  ],
+  "texto": "Sir Jonathan Edward Harrington OBE PhD",
+  "textoOriginal": "Sir Jonathan Edward Harrington OBE PhD"
+}

@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "José"
+  ],
+  "apellidos": [
+    {
+      "texto": "da Silva",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Sousa",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "José da Silva Sousa",
+  "textoOriginal": "José da Silva Sousa"
+}

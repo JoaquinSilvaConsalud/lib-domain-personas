@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Juan",
+    "Pablo"
+  ],
+  "apellidos": [
+    {
+      "texto": "García",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "Márquez",
+      "tipo": "MATERNO",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Juan Pablo García Márquez",
+  "textoOriginal": "Juan Pablo García Márquez"
+}

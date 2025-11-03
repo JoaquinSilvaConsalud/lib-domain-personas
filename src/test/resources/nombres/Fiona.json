@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Fiona"
+  ],
+  "apellidos": [
+    {
+      "texto": "MacLeod-MacKenzie",
+      "tipo": "COMPUESTO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Fiona MacLeod-MacKenzie",
+  "textoOriginal": "Fiona MacLeod-MacKenzie"
+}

@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Suchada"
+  ],
+  "apellidos": [
+    {
+      "texto": "Phakdee",
+      "tipo": "UNICO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Suchada Phakdee",
+  "textoOriginal": "สุชาดา ภักดี"
+}

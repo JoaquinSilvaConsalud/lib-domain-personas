@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "María",
+    "Fernanda"
+  ],
+  "apellidos": [
+    {
+      "texto": "González",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "Pérez",
+      "tipo": "MATERNO",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "María Fernanda González Pérez",
+  "textoOriginal": "María Fernanda González Pérez"
+}

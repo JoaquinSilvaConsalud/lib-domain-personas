@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Ayse"
+  ],
+  "apellidos": [
+    {
+      "texto": "Demir",
+      "tipo": "UNICO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Ayse Demir",
+  "textoOriginal": "Ayşe Demir"
+}

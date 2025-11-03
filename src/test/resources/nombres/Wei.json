@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Wei"
+  ],
+  "apellidos": [
+    {
+      "texto": "Wáng",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Wei Wáng",
+  "textoOriginal": "王伟"
+}

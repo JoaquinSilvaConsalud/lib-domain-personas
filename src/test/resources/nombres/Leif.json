@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Leif"
+  ],
+  "apellidos": [
+    {
+      "texto": "Andersson",
+      "tipo": "PATRONIMICO",
+      "order": 0
+    },
+    {
+      "texto": "Björk",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Leif Andersson Björk",
+  "textoOriginal": "Leif Andersson Björk"
+}

@@ -1,0 +1,46 @@
+trigger:
+- master
+
+pool:
+  name: "New Core"
+
+steps:
+
+- task: Gradle@2
+  displayName: "Gradle Build & Test"
+  inputs:
+    gradleOptions: '-Xmx1024m'
+    gradleWrapperFile: 'gradlew.bat'
+    workingDirectory: './'
+    tasks: 'build'
+    javaHomeOption: 'JDKVersion'
+    publishJUnitResults: true
+    testResultsFiles: '**/build/test-results/test/TEST-*.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: "Publish JaCoCo Coverage Report"
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: "$(System.DefaultWorkingDirectory)/build/reports/jacoco/xml/coverage.xml"
+    reportDirectory: "$(System.DefaultWorkingDirectory)/build/reports/jacoco/html"
+    pathToSources: "$(System.DefaultWorkingDirectory)/src/main/java"
+
+- task: Gradle@2
+  displayName: "Gradle Run Mutation Tests"
+  inputs:
+    gradleOptions: '-Xmx1024m'
+    gradleWrapperFile: 'gradlew.bat'
+    workingDirectory: './'
+    tasks: 'pitest'
+    javaHomeOption: 'JDKVersion'
+    publishJUnitResults: false
+
+- task: Gradle@2
+  displayName: "Gradle Publish"
+  inputs:
+    gradleOptions: '-Xmx1024m'
+    gradleWrapperFile: 'gradlew.bat'
+    workingDirectory: './'
+    tasks: 'publish'
+    javaHomeOption: 'JDKVersion'
+    publishJUnitResults: false

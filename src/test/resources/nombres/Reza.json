@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Reza"
+  ],
+  "apellidos": [
+    {
+      "texto": "Hosseini",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Tabrizi",
+      "tipo": "TRIBAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Reza Hosseini Tabrizi",
+  "textoOriginal": "رضا حسینی تبریزی"
+}

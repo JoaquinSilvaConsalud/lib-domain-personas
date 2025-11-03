@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Priyanka"
+  ],
+  "apellidos": [
+    {
+      "texto": "Choudhary",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Singh",
+      "tipo": "TRADICIONAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Priyanka Choudhary Singh",
+  "textoOriginal": "प्रियंका चौधरी सिंह"
+}

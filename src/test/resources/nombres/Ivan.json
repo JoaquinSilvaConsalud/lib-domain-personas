@@ -1,0 +1,19 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Ivan",
+    "Sergeevich"
+  ],
+  "apellidos": [
+    {
+      "texto": "Petrov-Sidorov",
+      "tipo": "COMPUESTO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Ivan Sergeevich Petrov-Sidorov",
+  "textoOriginal": "Иван Сергеевич Петров-Сидоров"
+}

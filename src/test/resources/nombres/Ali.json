@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Ali"
+  ],
+  "apellidos": [
+    {
+      "texto": "bin Yusuf",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "al-Qurashi",
+      "tipo": "TRIBAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Ali bin Yusuf al-Qurashi",
+  "textoOriginal": "علي بن يوسف القرشي"
+}

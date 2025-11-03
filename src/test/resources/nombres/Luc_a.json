@@ -1,0 +1,25 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Lucía"
+  ],
+  "apellidos": [
+    {
+      "texto": "Bianchi",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Rossi",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [
+    "Dr."
+  ],
+  "sufijos": [],
+  "texto": "Dr. Lucía Bianchi Rossi",
+  "textoOriginal": "Dr. Lucía Bianchi Rossi"
+}

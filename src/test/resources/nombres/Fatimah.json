@@ -1,0 +1,24 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Fatimah",
+    "al-Zahra"
+  ],
+  "apellidos": [
+    {
+      "texto": "bint Khalid",
+      "tipo": "PATERNO",
+      "order": 0
+    },
+    {
+      "texto": "al-Mansuri",
+      "tipo": "TRIBAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Fatimah al-Zahra bint Khalid al-Mansuri",
+  "textoOriginal": "فاطمة الزهراء بنت خالد المنصوري"
+}

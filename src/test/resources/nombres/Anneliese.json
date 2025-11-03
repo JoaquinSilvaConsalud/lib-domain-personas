@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "FEMENINO",
+  "nombres": [
+    "Anneliese"
+  ],
+  "apellidos": [
+    {
+      "texto": "Bauer",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Anneliese Bauer",
+  "textoOriginal": "Anneliese Bauer"
+}

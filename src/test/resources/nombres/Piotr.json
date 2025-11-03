@@ -1,0 +1,25 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Piotr"
+  ],
+  "apellidos": [
+    {
+      "texto": "Nowak",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Kowalski",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [
+    "Prof."
+  ],
+  "sufijos": [],
+  "texto": "Prof. Piotr Nowak Kowalski",
+  "textoOriginal": "Prof. Piotr Nowak Kowalski"
+}

@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Duncan"
+  ],
+  "apellidos": [
+    {
+      "texto": "MacLeod",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Duncan MacLeod",
+  "textoOriginal": "Duncan MacLeod"
+}

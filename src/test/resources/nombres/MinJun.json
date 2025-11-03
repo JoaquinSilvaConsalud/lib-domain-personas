@@ -1,0 +1,18 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Min-jun"
+  ],
+  "apellidos": [
+    {
+      "texto": "Kim",
+      "tipo": "UNICO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Min-jun Kim",
+  "textoOriginal": "김민준"
+}

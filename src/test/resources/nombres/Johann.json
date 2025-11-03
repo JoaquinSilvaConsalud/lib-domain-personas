@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Johann",
+    "Friedrich"
+  ],
+  "apellidos": [
+    {
+      "texto": "Müller-Schneider",
+      "tipo": "MATRIMONIO",
+      "order": 0
+    }
+  ],
+  "prefijos": [
+    "Dr.",
+    "Prof.",
+    "Herr"
+  ],
+  "sufijos": [],
+  "texto": "Dr. Prof. Herr Johann Friedrich Müller-Schneider",
+  "textoOriginal": "Dr. Prof. Herr Johann Friedrich Müller-Schneider"
+}

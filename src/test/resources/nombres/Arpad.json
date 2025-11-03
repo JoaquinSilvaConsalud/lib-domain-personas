@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Árpád"
+  ],
+  "apellidos": [
+    {
+      "texto": "Nagy",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Kovács",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Árpád Nagy Kovács",
+  "textoOriginal": "Nagy Kovács Árpád"
+}

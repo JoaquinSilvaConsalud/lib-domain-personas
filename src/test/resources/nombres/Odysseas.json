@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Odysseas"
+  ],
+  "apellidos": [
+    {
+      "texto": "Papadopoulos",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Karagiannis",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Odysseas Papadopoulos Karagiannis",
+  "textoOriginal": "Οδυσσέας Παπαδόπουλος Καραγιάννης"
+}

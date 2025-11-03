@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "NEUTRAL",
+  "nombres": [
+    "Oluwaseun"
+  ],
+  "apellidos": [
+    {
+      "texto": "Adeyemi",
+      "tipo": "FAMILIAR",
+      "order": 0
+    },
+    {
+      "texto": "Balogun",
+      "tipo": "FAMILIAR",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Oluwaseun Adeyemi Balogun",
+  "textoOriginal": "Oluwaseun Adeyemi Balogun"
+}

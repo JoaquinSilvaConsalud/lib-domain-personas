@@ -1,0 +1,19 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Jean",
+    "Pierre"
+  ],
+  "apellidos": [
+    {
+      "texto": "Dupont-Lefebvre",
+      "tipo": "COMPUESTO",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Jean Pierre Dupont-Lefebvre",
+  "textoOriginal": "Jean Pierre Dupont-Lefebvre"
+}

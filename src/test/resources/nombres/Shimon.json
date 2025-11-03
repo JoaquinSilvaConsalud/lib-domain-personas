@@ -1,0 +1,23 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Shimon"
+  ],
+  "apellidos": [
+    {
+      "texto": "Levi",
+      "tipo": "TRIBAL",
+      "order": 0
+    },
+    {
+      "texto": "Kohen",
+      "tipo": "TRADICIONAL",
+      "order": 1
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Shimon Levi Kohen",
+  "textoOriginal": "שמעון לוי כהן"
+}

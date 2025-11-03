@@ -1,0 +1,19 @@
+{
+  "uso": "OFICIAL",
+  "genero": "MASCULINO",
+  "nombres": [
+    "Anil",
+    "Kumar"
+  ],
+  "apellidos": [
+    {
+      "texto": "Sharma",
+      "tipo": "FAMILIAR",
+      "order": 0
+    }
+  ],
+  "prefijos": [],
+  "sufijos": [],
+  "texto": "Anil Kumar Sharma",
+  "textoOriginal": "अनिल कुमार शर्मा"
+}
