@@ -15,12 +15,13 @@ public class Consentimiento {
     public Consentimiento() {}
 
     public Consentimiento(Tipo tipo, Periodo periodo) {
-        if(tipo==null){
-            throw new IllegalArgumentException("el propósito no puede ser nulo");
+        if (tipo == null) {
+            throw new IllegalArgumentException("El propósito no puede ser nulo");
         }
-        if(periodo==null){
+        if (periodo == null) {
             throw new IllegalArgumentException("El periodo no puede ser nulo");
         }
+        this.tipo = tipo;
         this.periodo = periodo;
     }
 

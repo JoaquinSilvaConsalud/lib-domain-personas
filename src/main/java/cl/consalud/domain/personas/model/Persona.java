@@ -3,6 +3,7 @@ package cl.consalud.domain.personas.model;
 import cl.consalud.domain.common.model.*;
 import cl.consalud.domain.common.utils.CollectionUtils;
 import cl.consalud.domain.common.utils.Default;
+import cl.consalud.domain.personas.validation.PersonaConsentimientoValidator;
 import cl.consalud.domain.personas.validation.PersonaNacionalidadValidator;
 import lombok.Getter;
 import lombok.Setter;
@@ -123,10 +124,10 @@ public class Persona {
 
         this.nombres.addAll(nombres);
 
-        if (CollectionUtils.nullOrEmpty(consentimientos)) {
-            throw new IllegalArgumentException("Must have at least one consent.");
+        if (!CollectionUtils.nullOrEmpty(consentimientos)) {
+            PersonaConsentimientoValidator.validarConsentimientos(consentimientos);
+            this.consentimientos.addAll(consentimientos);
         }
-        this.consentimientos.addAll(consentimientos);
 
         if(CollectionUtils.nullOrEmpty(certificaciones)) {
             throw new IllegalArgumentException("Must have at least one certificacion.");
@@ -180,10 +181,30 @@ public class Persona {
         return List.copyOf(nacionalidades);
     }
 
+    public void setConsentimientos(List<Consentimiento> nuevos) {
+        this.consentimientos.clear();
+        if (nuevos == null || nuevos.isEmpty()) return;
+
+        PersonaConsentimientoValidator.validarConsentimientos(nuevos);
+        this.consentimientos.addAll(nuevos);
+    }
+
+    public void agregarOReemplazarConsentimiento(Consentimiento nuevo) {
+        List<Consentimiento> actualizados =
+                PersonaConsentimientoValidator.agregarOReemplazar(this.consentimientos, nuevo);
+
+        this.consentimientos.clear();
+        this.consentimientos.addAll(actualizados);
+    }
+
+    public List<Consentimiento> getConsentimientos() {
+        return List.copyOf(consentimientos);
+    }
+
     public Optional<List<CuentaIndividual>> getCuentasIndividuales() {
         return Optional.ofNullable(cuentasIndividuales)
                 .filter(list -> !list.isEmpty())
-                .map(ArrayList::new);
+                .map(List::copyOf);
     }
 
     public Optional<String> getFechaNacimiento() {

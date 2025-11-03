@@ -17,10 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 import cl.consalud.domain.personas.validation.PersonaNacionalidadValidator;
 
@@ -52,8 +49,12 @@ public class PersonaGenerator {
         var consentimientos = new ArrayList<Consentimiento>();
         var bancos = new ArrayList<Banco>();
 
-        for (int i = 0; i <= random.nextInt(1, 4); i++) {
-            consentimientos.add(makeValidConsentimiento());
+        var tiposUsados = new HashSet<Consentimiento.Tipo>();
+        while (consentimientos.size() < random.nextInt(1, 4)) {
+            var nuevo = makeValidConsentimiento();
+            if (tiposUsados.add(nuevo.getTipo())) {
+                consentimientos.add(nuevo);
+            }
         }
 
         var certificaciones = new ArrayList<Certificacion>();
@@ -126,9 +127,22 @@ public class PersonaGenerator {
     }
 
     public static Consentimiento makeValidConsentimiento() {
+        // Selecciona un tipo aleatorio (MARKETING, TERCEROS, etc.)
+        var tipos = Consentimiento.Tipo.values();
+        var tipo = tipos[random.nextInt(tipos.length)];
 
-        return null;
+        // Genera un período válido (inicio hoy, fin dentro de 1 año)
+        var inicio = ZonedDateTime.now().minusDays(random.nextInt(0, 30));
+        var fin = inicio.plusMonths(random.nextInt(6, 24));
+        var periodo = new Periodo(inicio, fin);
 
+        // Crea el consentimiento y define todos los campos requeridos
+        var consentimiento = new Consentimiento(tipo, periodo);
+        consentimiento.setEstado(random.nextBoolean());
+        consentimiento.setVersion("v" + faker.number().digit());
+        consentimiento.setMedio(faker.options().option("WEB", "APP", "CALLCENTER", "PRESENCIAL"));
+
+        return consentimiento;
     }
 
     public static Banco makeValidBanco() {

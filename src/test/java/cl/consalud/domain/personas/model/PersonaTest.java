@@ -29,7 +29,14 @@ public class PersonaTest {
     }
 
     private List<Consentimiento> crearConsentimientos() {
-        return List.of(new Consentimiento(Consentimiento.Tipo.MARKETING));
+        Consentimiento c = new Consentimiento(
+                Consentimiento.Tipo.MARKETING,
+                new Periodo(ZonedDateTime.now(), ZonedDateTime.now().plusDays(30))
+        );
+        c.setMedio("WEB");
+        c.setVersion("v1.0");
+        c.setEstado(true);
+        return List.of(c);
     }
 
     private List<Consentimiento> crearConsentimientosConPeriodo() {
@@ -106,6 +113,72 @@ public class PersonaTest {
                 () -> assertEquals(EstadoCivil.CASADO, persona.getEstadoCivil().get()),
                 () -> assertEquals(2, persona.getNacionalidades().size())
         );
+    }
+
+    @Test
+    @DisplayName("Debe permitir crear Persona sin consentimientos (lista vacía)")
+    void debePermitirCrearPersonaSinConsentimientos() {
+        Persona persona = new Persona(
+                crearPersonaId(),
+                crearIdentificaciones(),
+                crearNombres(),
+                new ArrayList<>(), // lista vacía permitida
+                crearCertificaciones(),
+                crearBancos(),
+                crearContactos(),
+                List.of(),
+                crearNacionalidades(),
+                EstadoCivil.CASADO,
+                ZonedDateTime.now(),
+                null,
+                crearCuentasIndividuales()
+        );
+
+        assertNotNull(persona.getConsentimientos());
+        assertTrue(persona.getConsentimientos().isEmpty());
+    }
+
+    @Test
+    @DisplayName("Debe permitir agregar o reemplazar consentimientos correctamente")
+    void debeAgregarOReemplazarConsentimientos() {
+        Persona persona = crearPersonaCompleta();
+
+        Consentimiento nuevo = new Consentimiento(
+                Consentimiento.Tipo.MARKETING,
+                new Periodo(ZonedDateTime.now(), ZonedDateTime.now().plusDays(15))
+        );
+        nuevo.setMedio("APP");
+        nuevo.setVersion("v2.0");
+        nuevo.setEstado(true);
+
+        persona.agregarOReemplazarConsentimiento(nuevo);
+
+        assertEquals(1, persona.getConsentimientos().size());
+        assertEquals("APP", persona.getConsentimientos().get(0).getMedio());
+        assertEquals("v2.0", persona.getConsentimientos().get(0).getVersion());
+    }
+
+    @Test
+    @DisplayName("Debe permitir limpiar consentimientos con lista vacía o null")
+    void debePermitirLimpiarConsentimientos() {
+        Persona persona = crearPersonaCompleta();
+        assertFalse(persona.getConsentimientos().isEmpty());
+
+        persona.setConsentimientos(List.of());
+        assertTrue(persona.getConsentimientos().isEmpty());
+
+        persona.setConsentimientos(null);
+        assertTrue(persona.getConsentimientos().isEmpty());
+    }
+
+    @Test
+    @DisplayName("Debe lanzar excepción si se intenta agregar consentimiento con datos incompletos")
+    void debeFallarSiConsentimientoIncompleto() {
+        Persona persona = new Persona(crearPersonaId());
+        Consentimiento incompleto = new Consentimiento(Consentimiento.Tipo.MARKETING);
+        // Si Falta periodo, versión y medio entonces debe fallar
+        assertThrows(IllegalArgumentException.class, () ->
+                persona.setConsentimientos(List.of(incompleto)));
     }
 
     @Test
@@ -334,18 +407,6 @@ public class PersonaTest {
                         crearCuentasIndividuales())
         );
         assertEquals("Must have at least one name", ex.getMessage());
-    }
-
-    @Test
-    @DisplayName("Debe fallar al crear Persona sin consentimientos")
-    void falloSinConsentimientos() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
-                new Persona(crearPersonaId(), crearIdentificaciones(), crearNombres(),
-                        new ArrayList<>(), crearCertificaciones(), crearBancos(),
-                        crearContactos(), List.of(), crearNacionalidades(), EstadoCivil.CASADO, ZonedDateTime.now(), null,
-                        crearCuentasIndividuales())
-        );
-        assertEquals("Must have at least one consent.", ex.getMessage());
     }
 
     @Test

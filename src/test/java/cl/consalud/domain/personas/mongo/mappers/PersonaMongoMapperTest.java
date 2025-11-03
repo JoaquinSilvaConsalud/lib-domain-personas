@@ -48,7 +48,7 @@ public class PersonaMongoMapperTest {
 
         var id = new PersonaId();
         List<Identificacion> identificaciones = List.of(new Run("98943652-K"));        var nombres = List.of(new Nombre("Juan", "Pedro", "Perez", "Soto"));
-        var consentimientos = List.of(new Consentimiento(Consentimiento.Tipo.MARKETING));
+        var consentimientos = List.of(crearConsentimientoValido());
         var salud = new Salud(
                 List.of(67),
                 67.0,
@@ -144,5 +144,16 @@ public class PersonaMongoMapperTest {
         assertEquals(personaDocumentValida.contactos().size(), result.getContactos().size());
         assertEquals(personaDocumentValida.empleos().size(), result.getEmpleos().size());
         assertEquals(personaDocumentValida.cuentasIndividuales().size(), result.getCuentasIndividuales().orElse(List.of()).size());
+    }
+
+    private Consentimiento crearConsentimientoValido() {
+        Consentimiento consentimiento = new Consentimiento(
+                Consentimiento.Tipo.MARKETING,
+                new Periodo(ZonedDateTime.now(), ZonedDateTime.now().plusDays(30))
+        );
+        consentimiento.setMedio("WEB");
+        consentimiento.setVersion("v1.0");
+        consentimiento.setEstado(true);
+        return consentimiento;
     }
 }
