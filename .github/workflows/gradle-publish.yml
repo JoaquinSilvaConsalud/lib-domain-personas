@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
 
 jobs:
@@ -13,7 +12,11 @@ jobs:
 
     permissions:
       contents: 'read'
-      id-token: 'write' 
+      
+    env:
+      GCP_PROJECT_ID: 'ethereal-brace-475715-d0'
+      GCP_LOCATION: 'southamerica-west1'
+      GCP_REPOSITORY: 'mvn-consalud'
 
     steps:
       - name: ⚙️ Checkout code
@@ -33,27 +36,20 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
-          service_account: 'github-actions@ethereal-brace-475715-d0.iam.gserviceaccount.com'
-          
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
           access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
 
-      - name: ☁️ Set up gcloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-        with:
-          project_id: 'ethereal-brace-475715-d0'
+      - name: 🕵️ DEBUG - Verificar permisos de IAM
+        run: |
+          echo "Verificando la política de IAM para el repositorio ${{ env.GCP_REPOSITORY }}:"
+          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} \
+            --project=${{ env.GCP_PROJECT_ID }} \
+            --location=${{ env.GCP_LOCATION }} \
+            --format=json
 
       - name: 🔑 Get GCP Access Token
         id: get_token
         run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
-
-      - name: 🕵️ DEBUG - Verificar permisos de IAM en el Repositorio
-        run: |
-          echo "Verificando la política de IAM para el repositorio mvn-consalud:"
-          gcloud artifacts repositories get-iam-policy mvn-consalud \
-            --project=ethereal-brace-475715-d0 \
-            --location=southamerica-west1 \
-            --format=json
 
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
