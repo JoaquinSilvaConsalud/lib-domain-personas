@@ -55,9 +55,9 @@ jobs:
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: 🔑 Get GCP Access Token
-        id: get_token
-        run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
+#      - name: 🔑 Get GCP Access Token
+#        id: get_token
+#        run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
@@ -69,6 +69,3 @@ jobs:
 
       - name: 📤 Publish to GAR
         run: ./gradlew publish
-        env:
-          gcpArtifactRegistryUsername: oauth2accesstoken
-          gcpArtifactRegistryPassword: ${{ steps.get_token.outputs.token }}
