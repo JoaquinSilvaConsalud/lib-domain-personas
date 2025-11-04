@@ -1,14 +1,5 @@
 import org.springframework.boot.gradle.plugin.SpringBootPlugin
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.google.cloud.tools.artifactregistry:artifactregistry-gradle-plugin:2.2.1'
-    }
-}
-
 plugins {
     id 'java-library'
     id 'maven-publish'
@@ -18,7 +9,6 @@ plugins {
     id 'jacoco'
 }
 
-apply plugin: 'com.google.cloud.tools.artifactregistry'
 
 group = 'cl.consalud'
 version = '0.0.2-SNAPSHOT'
@@ -108,7 +98,10 @@ publishing {
         maven {
             url = uri("https://southamerica-west1-maven.pkg.dev/ethereal-brace-475715-d0/mvn-consalud")
             name = "GoogleArtifactRegistry"
-        }
+            credentials {
+                username = findProperty("gcpArtifactRegistryUsername") ?: "" 
+                password = findProperty("gcpArtifactRegistryPassword") ?: ""
+            }
     }
 }
 

@@ -69,3 +69,6 @@ jobs:
 
       - name: 📤 Publish to GAR
         run: ./gradlew publish --refresh-dependencies
+        env:
+          gcpArtifactRegistryUsername: oauth2accesstoken
+          gcpArtifactRegistryPassword: ${{ steps.auth.outputs.access_token }}
