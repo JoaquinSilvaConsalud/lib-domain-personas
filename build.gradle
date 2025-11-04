@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.google.cloud.tools:artifactregistry-gradle-plugin:2.2.1'
+        classpath 'com.google.cloud.tools.artifactregistry:artifactregistry-gradle-plugin:2.2.1'
     }
 }
 
