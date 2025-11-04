@@ -102,6 +102,7 @@ publishing {
                 username = findProperty("gcpArtifactRegistryUsername") ?: "" 
                 password = findProperty("gcpArtifactRegistryPassword") ?: ""
             }
+        }
     }
 }
 
