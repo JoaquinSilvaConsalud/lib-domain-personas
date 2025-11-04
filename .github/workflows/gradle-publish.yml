@@ -60,7 +60,7 @@ jobs:
 #        run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Gradle Build & Run Tests
-        run: ./gradlew build pitest -x publish
+        run: ./gradlew build pitest -x publish --refresh-dependencies
 
 #      - name: 🕵️ DEBUG - Verificar permisos de IAM
 #        run: |
@@ -68,4 +68,4 @@ jobs:
 #          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} --location=${{ env.GCP_LOCATION }}
 
       - name: 📤 Publish to GAR
-        run: ./gradlew publish
+        run: ./gradlew publish --refresh-dependencies
