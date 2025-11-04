@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-
   workflow_dispatch:
     inputs:
       environment:
@@ -22,9 +21,11 @@ jobs:
     
     permissions:
       contents: 'read'
+      id-token: 'write'
 
     env:
-      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+
+      GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }} 
       GCP_LOCATION: ${{ vars.GCP_LOCATION }}
       GCP_REPOSITORY: ${{ vars.GCP_REPOSITORY }}
 
@@ -42,22 +43,18 @@ jobs:
           java-version: '21' 
           cache: 'gradle'
 
-      - name: 🔐 Authenticate to Google Cloud
+      - name: 🔐 Authenticate to Google Cloud (WIF)
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
+          workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
+          service_account: 'github-actions@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
 
-          credentials_json: ${{ secrets.GCP_SA_KEY }} 
-          access_token_scopes: 'https://www.googleapis.com/auth/cloud-platform'
+      - name: 📦 Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: 🕵️ DEBUG - Verificar permisos de IAM
-        run: |
-          echo "Verificando la política de IAM para el repositorio ${{ env.GCP_REPOSITORY }}:"
-          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} \
-            --project=${{ env.GCP_PROJECT_ID }} \
-            --location=${{ env.GCP_LOCATION }} \
-            --format=json
-        
       - name: 🔑 Get GCP Access Token
         id: get_token
         run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
@@ -68,5 +65,5 @@ jobs:
       - name: 📤 Publish to GAR
         run: ./gradlew publish
         env:
-          gcpArtifactRegistryUsername: oauth2accesstoken 
+          gcpArtifactRegistryUsername: oauth2accesstoken
           gcpArtifactRegistryPassword: ${{ steps.get_token.outputs.token }}
