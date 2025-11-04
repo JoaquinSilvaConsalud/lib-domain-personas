@@ -63,25 +63,21 @@ configurations {
     }
 }
 
-//ext.azure = {
-//    maven {
-//        url = 'https://devops.consalud.net/Consalud/NuevoCore/_packaging/NuevoCore/maven/v1'
-//        name = 'NuevoCore'
-//        credentials {
-//            username = findProperty("consaludAzureUser")
-//            password = findProperty("consaludAzurePAT")
-//        }
-//        authentication {
-//            basic(BasicAuthentication)
-//        }
-//    }
-//}
-
-//repositories azure
-
-repositories {
-    mavenCentral()
+ext.azure = {
+    maven {
+        url = 'https://devops.consalud.net/Consalud/NuevoCore/_packaging/NuevoCore/maven/v1'
+        name = 'NuevoCore'
+        credentials {
+            username = findProperty("consaludAzureUser")
+            password = findProperty("consaludAzurePAT")
+        }
+        authentication {
+            basic(BasicAuthentication)
+        }
+    }
 }
+
+repositories azure
 
 publishing {
     publications {
@@ -92,17 +88,7 @@ publishing {
             from components.java
         }
     }
-    
-    repositories {
-        maven {
-            url = uri("https://southamerica-west1-maven.pkg.dev/ethereal-brace-475715-d0/mvn-consalud")
-            name = "GoogleArtifactRegistry"
-            credentials {
-                username = findProperty("gcpArtifactRegistryUsername") ?: "" 
-                password = findProperty("gcpArtifactRegistryPassword") ?: ""
-            }
-        }
-    }
+    repositories azure
 }
 
 configurations.configureEach {
@@ -132,7 +118,7 @@ dependencies {
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
     implementation "com.fasterxml.jackson.core:jackson-annotations:${jacksonAnnotationVersion}"
-
+    implementation "com.googlecode.libphonenumber:libphonenumber:8.13.37"
     implementation "net.datafaker:datafaker:${dataFakerVersion}"
 
 

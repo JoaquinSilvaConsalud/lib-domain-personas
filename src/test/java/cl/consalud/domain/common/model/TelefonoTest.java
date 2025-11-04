@@ -1,36 +1,26 @@
 package cl.consalud.domain.common.model;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TelefonoTest {
 
-    String validPhoneString = "+56 9 1234 5678";
-    Telefono validPhone;
+    final String validPhoneString = "+56947390969";
 
-    @BeforeEach
-    void setUp() {
-        validPhone = new Telefono(validPhoneString);
-    }
 
     @Test
-    void getValor() {
+    void constructor_DebeCrearObjetoConTelefonoValido() {
+        Telefono validPhone = new Telefono(validPhoneString);
 
         assertEquals(validPhoneString, validPhone.getValor());
-        assertNotEquals("", validPhone.getValor());
-        validPhone.setValor("");
-        assertEquals("", validPhone.getValor());
+        assertEquals(Contacto.Tipo.TELEFONO, validPhone.getTipo());
+        assertTrue(validPhone.isActivo());
     }
 
     @Test
-    void getTipo() {
-
-        assertNotNull(validPhone.getTipo());
-        assertEquals(Contacto.Tipo.TELEFONO, validPhone.getTipo());
-        assertNotEquals(Contacto.Tipo.EMAIL, validPhone.getTipo());
+    void constructor_DebeLanzarExcepcionParaTelefonoInvalido() {
+        assertThrows(IllegalArgumentException.class, () -> new Telefono("+123"));
+        assertThrows(IllegalArgumentException.class, () -> new Telefono(null));
     }
 }

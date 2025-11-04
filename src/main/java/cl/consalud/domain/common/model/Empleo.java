@@ -2,7 +2,6 @@ package cl.consalud.domain.common.model;
 
 import cl.consalud.domain.common.utils.Default;
 import cl.consalud.domain.personas.model.Identificacion;
-import cl.consalud.domain.personas.model.Run;
 import lombok.Getter;
 import org.springframework.util.StringUtils;
 

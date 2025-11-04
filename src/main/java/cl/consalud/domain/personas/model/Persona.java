@@ -95,7 +95,19 @@ public class Persona {
 
         this.empleos.addAll(empleos);
 
-        if (CollectionUtils.nullOrEmpty(contactos)) {
+        if(contactos.stream().filter(c->c.getTipo()==Contacto.Tipo.TELEFONO & c.isPreferido()).count()>1){
+            throw new IllegalArgumentException("Solo puede tener un teléfono preferido.");
+        }
+        if(contactos.stream().filter(c->c.getTipo()==Contacto.Tipo.EMAIL & c.isPreferido()).count()>1){
+            throw new IllegalArgumentException("Solo puede tener un Email preferido.");
+        }
+        if(contactos.size()==1 && contactos.stream().anyMatch(c -> !c.isActivo())){
+            throw new IllegalArgumentException("Debe especificar si esta activo");
+        }
+        if(contactos.stream().filter(c-> !c.isActivo()).count()>1){
+            throw new IllegalArgumentException("solo 1 contacto puede quedar vacio");
+        }
+        if (CollectionUtils.nullOrEmpty(contactos) ) {
             throw new IllegalArgumentException("Must have at least one contact information.");
         }
         this.contactos.addAll(contactos);
