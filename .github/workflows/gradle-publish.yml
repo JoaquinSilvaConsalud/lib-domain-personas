@@ -62,6 +62,11 @@ jobs:
       - name: 📦 Gradle Build & Run Tests
         run: ./gradlew build pitest -x publish
 
+      - name: 🕵️ DEBUG - Verificar permisos de IAM
+        run: |
+          echo "Verificando la política de IAM para el repositorio ${{ env.GCP_REPOSITORY }}:"
+          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} ...
+
       - name: 📤 Publish to GAR
         run: ./gradlew publish
         env:
