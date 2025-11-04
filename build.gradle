@@ -63,21 +63,25 @@ configurations {
     }
 }
 
-ext.azure = {
-    maven {
-        url = 'https://devops.consalud.net/Consalud/NuevoCore/_packaging/NuevoCore/maven/v1'
-        name = 'NuevoCore'
-        credentials {
-            username = findProperty("consaludAzureUser")
-            password = findProperty("consaludAzurePAT")
-        }
-        authentication {
-            basic(BasicAuthentication)
-        }
-    }
-}
+//ext.azure = {
+//    maven {
+//        url = 'https://devops.consalud.net/Consalud/NuevoCore/_packaging/NuevoCore/maven/v1'
+//        name = 'NuevoCore'
+//        credentials {
+//            username = findProperty("consaludAzureUser")
+//            password = findProperty("consaludAzurePAT")
+//        }
+//        authentication {
+//            basic(BasicAuthentication)
+//        }
+//    }
+//}
 
-repositories azure
+//repositories azure
+
+repositories {
+    mavenCentral()
+}
 
 publishing {
     publications {
@@ -88,7 +92,17 @@ publishing {
             from components.java
         }
     }
-    repositories azure
+
+    repositories {
+        maven {
+            url = uri("https://southamerica-west1-maven.pkg.dev/ethereal-brace-475715-d0/mvn-consalud")
+            name = "GoogleArtifactRegistry"
+            credentials {
+                username = findProperty("gcpArtifactRegistryUsername") ?: "" 
+                password = findProperty("gcpArtifactRegistryPassword") ?: ""
+            }
+        }
+    }
 }
 
 configurations.configureEach {
