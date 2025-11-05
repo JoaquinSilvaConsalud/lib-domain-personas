@@ -74,7 +74,12 @@ jobs:
         run: |
           echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token)" >> $GITHUB_ENV
 
-      - name: 🚀 Publish to Artifact Registry (Maven)
-        run: ./gradlew publish --refresh-dependencies --stacktrace
+      - name: 🚀 Publish to GCP Artifact Registry
+        run: |
+          echo "🧩 Publicando librería en Artifact Registry..."
+          ./gradlew publish --refresh-dependencies --stacktrace
         env:
+          GCP_PROJECT_ID: ${{ env.GCP_PROJECT_ID }}
+          GCP_LOCATION: ${{ env.GCP_LOCATION }}
+          GCP_REPOSITORY: ${{ env.GCP_REPOSITORY }}
           GCP_ACCESS_TOKEN: ${{ env.GCP_ACCESS_TOKEN }}
