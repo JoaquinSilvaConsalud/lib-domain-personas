@@ -33,20 +33,24 @@ java {
     compileJava {
         options.release = 21
         options.encoding = 'UTF-8'
+        options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
         options.compilerArgs += [
                 "-parameters",
                 '-Amapstruct.defaultComponentModel=spring',
-                '-Amapstruct.suppressGeneratorTimestamp=true'
+                '-Amapstruct.suppressGeneratorTimestamp=true',
+                '-Amapstruct.unmappedTargetPolicy=IGNORE'
         ]
     }
 
     compileTestJava {
         options.release = 21
         options.encoding = 'UTF-8'
+        options.compilerArgs += ["-Xlint:unchecked", "-Xlint:deprecation"]
         options.compilerArgs += [
                 "-parameters",
                 '-Amapstruct.defaultComponentModel=spring',
-                '-Amapstruct.suppressGeneratorTimestamp=true'
+                '-Amapstruct.suppressGeneratorTimestamp=true',
+                '-Amapstruct.unmappedTargetPolicy=IGNORE'
         ]
     }
 
