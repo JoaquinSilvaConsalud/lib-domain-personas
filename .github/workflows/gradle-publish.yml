@@ -55,19 +55,19 @@ jobs:
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
 
-      - name: 🔑 Get short-lived GCP access token
-        id: access-token
+      - name: Test GCP Auth (OIDC)
         run: |
-          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token)" >> $GITHUB_ENV
-
+          echo "Verificando autenticación OIDC..."
+          gcloud auth print-access-token --impersonate-service-account=${{ secrets.GCP_SERVICE_ACCOUNT }} | head -c 40 && echo "..."
+          gcloud auth list
 
       - name: 🧪 Build & Test
         run: ./gradlew clean build --no-daemon --refresh-dependencies
 
-#      - name: 🕵️ DEBUG - Verificar permisos de IAM
-#        run: |
-#          echo "Verificando la política de IAM para el repositorio ${{ env.GCP_REPOSITORY }}:"
-#          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} --location=${{ env.GCP_LOCATION }}
+      - name: 🔑 Get short-lived GCP access token
+        id: token
+        run: |
+          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token --impersonate-service-account=${{ secrets.GCP_SERVICE_ACCOUNT }})" >> $GITHUB_ENV
 
       - name: 🚀 Publish to Artifact Registry
         run: ./gradlew publish --refresh-dependencies
