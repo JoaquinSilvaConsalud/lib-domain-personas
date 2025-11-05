@@ -87,20 +87,17 @@ repositories {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = "cl.consalud"
-            artifactId = "lib-domain-personas"
-            version = "0.0.2-SNAPSHOT"
             from components.java
         }
     }
 
     repositories {
         maven {
-            url = uri("https://southamerica-west1-maven.pkg.dev/ethereal-brace-475715-d0/mvn-consalud")
             name = "GoogleArtifactRegistry"
+            url = uri("https://${System.getenv('GCP_LOCATION')}-maven.pkg.dev/${System.getenv('GCP_PROJECT_ID')}/${System.getenv('GCP_REPOSITORY')}")
             credentials {
-                username = findProperty("gcpArtifactRegistryUsername") ?: "" 
-                password = findProperty("gcpArtifactRegistryPassword") ?: ""
+                username = "oauth2accesstoken"
+                password = System.getenv("GCP_ACCESS_TOKEN")
             }
         }
     }
@@ -124,6 +121,10 @@ dependencyManagement {
 }
 
 dependencies {
+
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compileOnly 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
     implementation "com.aventrix.jnanoid:jnanoid:2.0.0"

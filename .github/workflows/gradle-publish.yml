@@ -47,28 +47,29 @@ jobs:
         id: auth
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: 'projects/466181763387/locations/global/workloadIdentityPools/github-pool-v4/providers/github-provider'
-          service_account: 'github-actions@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: 📦 Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
 
-#      - name: 🔑 Get GCP Access Token
-#        id: get_token
-#        run: echo "token=$(gcloud auth print-access-token)" >> "$GITHUB_OUTPUT"
+      - name: 🔑 Get short-lived GCP access token
+        id: access-token
+        run: |
+          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token)" >> $GITHUB_ENV
 
-      - name: 📦 Gradle Build & Run Tests
-        run: ./gradlew build pitest -x publish --refresh-dependencies
+
+      - name: 🧪 Build & Test
+        run: ./gradlew clean build --no-daemon --refresh-dependencies
 
 #      - name: 🕵️ DEBUG - Verificar permisos de IAM
 #        run: |
 #          echo "Verificando la política de IAM para el repositorio ${{ env.GCP_REPOSITORY }}:"
 #          gcloud artifacts repositories get-iam-policy ${{ env.GCP_REPOSITORY }} --location=${{ env.GCP_LOCATION }}
 
-      - name: 📤 Publish to GAR
+      - name: 🚀 Publish to Artifact Registry
         run: ./gradlew publish --refresh-dependencies
         env:
-          gcpArtifactRegistryUsername: oauth2accesstoken
-          gcpArtifactRegistryPassword: ${{ steps.auth.outputs.access_token }}
+          GCP_ACCESS_TOKEN: ${{ env.GCP_ACCESS_TOKEN }}
