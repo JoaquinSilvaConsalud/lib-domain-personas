@@ -66,18 +66,18 @@ jobs:
           echo "🔹 Repositorio: ${{ env.GCP_REPOSITORY }}"
           echo "🔹 Región: ${{ env.GCP_LOCATION }}"
 
-      - name: 🧪 Build & Test
-        run: ./gradlew clean build --no-daemon --refresh-dependencies
-
-      - name: 🔑 Get short-lived GCP access token
+      - name: 🔑 Generate short-lived GCP access token
         id: token
         run: |
-          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token)" >> $GITHUB_ENV
+          echo "Obteniendo token de acceso corto..."
+          TOKEN=$(gcloud auth print-access-token)
+          echo "GCP_ACCESS_TOKEN=$TOKEN" >> $GITHUB_ENV
+          echo "✅ Token exportado a GITHUB_ENV"
 
-      - name: 🚀 Publish to GCP Artifact Registry
+      - name: 🚀 Build & Publish to GCP Artifact Registry
         run: |
-          echo "🧩 Publicando librería en Artifact Registry..."
-          ./gradlew publish --refresh-dependencies --stacktrace
+          echo "🧩 Compilando y publicando librería en Artifact Registry..."
+          ./gradlew clean build publish --no-daemon --refresh-dependencies --stacktrace
         env:
           GCP_PROJECT_ID: ${{ env.GCP_PROJECT_ID }}
           GCP_LOCATION: ${{ env.GCP_LOCATION }}
