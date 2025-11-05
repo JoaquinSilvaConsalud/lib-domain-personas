@@ -43,23 +43,29 @@ jobs:
           java-version: '21' 
           cache: 'gradle'
 
-      - name: 🔐 Authenticate to Google Cloud (WIF)
+      - name: 🔐 Authenticate to Google Cloud (Workload Identity Federation)
         id: auth
-        uses: 'google-github-actions/auth@v2'
+        uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: "access_token"
 
       - name: 📦 Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ env.GCP_PROJECT_ID }}
+          install_components: artifact-registry
 
-      - name: Test GCP Auth (OIDC)
+      - name: 🔎 Verify GCP Auth
         run: |
-          echo "Verificando autenticación OIDC..."
-          gcloud auth print-access-token --impersonate-service-account=${{ secrets.GCP_SERVICE_ACCOUNT }} | head -c 40 && echo "..."
+          echo "🔍 Verificando autenticación con GCP..."
           gcloud auth list
+          gcloud config list
+          gcloud auth print-access-token | head -c 40 && echo "..."
+          echo "🔹 Proyecto: ${{ env.GCP_PROJECT_ID }}"
+          echo "🔹 Repositorio: ${{ env.GCP_REPOSITORY }}"
+          echo "🔹 Región: ${{ env.GCP_LOCATION }}"
 
       - name: 🧪 Build & Test
         run: ./gradlew clean build --no-daemon --refresh-dependencies
@@ -67,9 +73,9 @@ jobs:
       - name: 🔑 Get short-lived GCP access token
         id: token
         run: |
-          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token --impersonate-service-account=${{ secrets.GCP_SERVICE_ACCOUNT }})" >> $GITHUB_ENV
+          echo "GCP_ACCESS_TOKEN=$(gcloud auth print-access-token)" >> $GITHUB_ENV
 
-      - name: 🚀 Publish to Artifact Registry
-        run: ./gradlew publish --refresh-dependencies
+      - name: 🚀 Publish to Artifact Registry (Maven)
+        run: ./gradlew publish --refresh-dependencies --stacktrace
         env:
           GCP_ACCESS_TOKEN: ${{ env.GCP_ACCESS_TOKEN }}

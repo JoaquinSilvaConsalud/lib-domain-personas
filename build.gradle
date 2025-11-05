@@ -86,14 +86,17 @@ repositories {
 
 publishing {
     publications {
-        maven(MavenPublication) {
+        mavenJava(MavenPublication) {
             from components.java
+            groupId = 'cl.consalud'
+            artifactId = 'lib-domain-personas'
+            version = '1.0.0'
         }
     }
 
     repositories {
         maven {
-            name = "GoogleArtifactRegistry"
+            name = "ArtifactRegistry"
             url = uri("https://${System.getenv('GCP_LOCATION')}-maven.pkg.dev/${System.getenv('GCP_PROJECT_ID')}/${System.getenv('GCP_REPOSITORY')}")
             credentials {
                 username = "oauth2accesstoken"
