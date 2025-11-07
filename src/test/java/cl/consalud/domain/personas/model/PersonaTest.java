@@ -48,7 +48,7 @@ public class PersonaTest {
     }
 
     private List<Banco> crearBancos() {
-        return List.of(new Banco("12456", "galicia", "Corriente"));
+        return List.of(new Banco("12456", "galicia", "Corriente", true));
     }
 
     private List<Contacto> crearContactos() {
@@ -422,15 +422,11 @@ public class PersonaTest {
     }
 
     @Test
-    @DisplayName("Debe fallar al crear Persona sin bancos")
-    void falloSinBancos() {
-        IllegalArgumentException ex = assertThrows(IllegalArgumentException.class, () ->
-                new Persona(crearPersonaId(), crearIdentificaciones(), crearNombres(),
-                        crearConsentimientos(), crearCertificaciones(), new ArrayList<>(),
-                        crearContactos(), List.of(), crearNacionalidades(), EstadoCivil.CASADO, ZonedDateTime.now(), null,
-                        crearCuentasIndividuales())
-        );
-        assertEquals("Must have at least one Bank.", ex.getMessage());
+    @DisplayName("Debe inicializar bancos como lista vacía")
+    void debeInicializarBancosVacio() {
+        Persona persona = new Persona(crearPersonaId());
+        assertNotNull(persona.getBancos());
+        assertTrue(persona.getBancos().isEmpty());
     }
 
     @Test
@@ -517,4 +513,46 @@ public class PersonaTest {
         }, "La lista retornada por getCuentasIndividuales no debe ser modificable");
     }
 
+    @Test
+    void testValidatePreferredAccountConMultiplePreferidas() {
+        List<Banco> bancos = List.of(
+                new Banco("123", "Banco A", "Cuenta Corriente", true),
+                new Banco("456", "Banco B", "Cuenta Ahorro", true)
+        );
+
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Persona(crearPersonaId(), crearIdentificaciones(), crearNombres(),
+                    crearConsentimientos(), crearCertificaciones(), bancos,
+                    crearContactos(), List.of(), crearNacionalidades(), EstadoCivil.CASADO, ZonedDateTime.now(), null,
+                    crearCuentasIndividuales());
+        });
+
+        assertEquals("Only one bank account can be preferred.", exception.getMessage());
+    }
+
+    @Test
+    void testValidatePreferredAccountConUnaPreferida() {
+        List<Banco> bancos = new ArrayList<>();
+        bancos.add(new Banco("123", "Banco A", "Cuenta Corriente", true));
+        bancos.add(new Banco("456", "Banco B", "Cuenta Ahorro", false));
+
+        Persona persona = new Persona(crearPersonaId(), crearIdentificaciones(), crearNombres(),
+                crearConsentimientos(), crearCertificaciones(), bancos,
+                crearContactos(), List.of(), crearNacionalidades(), EstadoCivil.CASADO, ZonedDateTime.now(), null,
+                crearCuentasIndividuales());
+
+        assertDoesNotThrow(persona::validatePreferredAccount);
+    }
+
+    @Test
+    void testValidatePreferredAccountSinCuentas() {
+        List<Banco> bancos = new ArrayList<>();
+
+        Persona persona = new Persona(crearPersonaId(), crearIdentificaciones(), crearNombres(),
+                crearConsentimientos(), crearCertificaciones(), bancos,
+                crearContactos(), List.of(), crearNacionalidades(), EstadoCivil.CASADO, ZonedDateTime.now(), null,
+                crearCuentasIndividuales());
+
+        assertDoesNotThrow(persona::validatePreferredAccount);
+    }
 }

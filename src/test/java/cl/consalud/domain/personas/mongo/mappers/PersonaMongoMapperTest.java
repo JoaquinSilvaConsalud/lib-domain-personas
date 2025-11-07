@@ -63,7 +63,7 @@ public class PersonaMongoMapperTest {
                 nombres,
                 consentimientos,
                 List.of(new Certificacion(true, new Periodo(), Certificacion.Tipo.PERSONA, "Test")),
-                List.of(new Banco("12456", "galicia", "Corriente")),
+                List.of(new Banco("12456", "galicia", "Corriente", true)),
                 List.of(new Email("test@test.com")),
                 List.of(),
                 List.of(Nacionalidad.CHILENA, Nacionalidad.ARGENTINA),
@@ -95,7 +95,7 @@ public class PersonaMongoMapperTest {
                 nombreMapper.toMongoList(nombres),
                 consentimientoMapper.toMongoList(consentimientos),
                 List.of(certificacionMapper.toMongo(new Certificacion(true, new Periodo(), Certificacion.Tipo.PERSONA, "Test"))),
-                List.of(bancoMapper.toMongo(new Banco("12456", "galicia", "Corriente"))),  // Agregar banco
+                List.of(bancoMapper.toMongo(new Banco("12456", "galicia", "Corriente", true))),  // Agregar banco
                 ZonedDateTime.now(),
                 EstadoCivil.CASADO,
                 List.of(),

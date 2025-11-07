@@ -141,8 +141,9 @@ public class PersonaGenerator {
         String numeroCuenta = generateAccountNumber();
         String nombreBanco = faker.company().name();
         String tipoCuenta = faker.options().option("Ahorros", "Corriente", "Plazo Fijo");
+        boolean cuentaPreferida = faker.random().nextBoolean();
 
-        return new Banco(numeroCuenta, nombreBanco, tipoCuenta);
+        return new Banco(numeroCuenta, nombreBanco, tipoCuenta, cuentaPreferida);
     }
 
     public static String generateAccountNumber() {

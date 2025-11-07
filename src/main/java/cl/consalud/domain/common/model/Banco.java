@@ -8,8 +8,9 @@ public class Banco {
     private String numeroCuenta;
     private String nombreBanco;
     private String tipoCuenta;
+    private boolean cuentaPreferida;
 
-    public Banco(String numeroCuenta, String nombreBanco, String tipoCuenta) {
+    public Banco(String numeroCuenta, String nombreBanco, String tipoCuenta, boolean cuentaPreferida) {
         if (numeroCuenta == null) {
             throw new IllegalArgumentException("Account number cannot be null");
         }
@@ -22,5 +23,6 @@ public class Banco {
         this.numeroCuenta = numeroCuenta;
         this.nombreBanco = nombreBanco;
         this.tipoCuenta = tipoCuenta;
+        this.cuentaPreferida = cuentaPreferida;
     }
 }

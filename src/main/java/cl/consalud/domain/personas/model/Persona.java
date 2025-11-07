@@ -59,8 +59,6 @@ public class Persona {
 
     protected final List<Empleo> empleos = new ArrayList<>();
 
-    //Persona() {this.id = new PersonaId();}
-
     public Persona(PersonaId id) {
         this.id = id;
     }
@@ -147,10 +145,8 @@ public class Persona {
 
         this.certificaciones.addAll(certificaciones);
 
-        if (CollectionUtils.nullOrEmpty(bancos)) {
-            throw new IllegalArgumentException("Must have at least one Bank.");
-        }
         this.bancos.addAll(bancos);
+        validatePreferredAccount();
 
         if (nacionalidades != null && !nacionalidades.isEmpty()) {
             PersonaNacionalidadValidator.validarNacionalidades(nacionalidades);
@@ -237,8 +233,19 @@ public class Persona {
         return sombreros.contains(Sombrero.AFILIADO);
     }
 
+
     public enum Sombrero {
         //TODO: Titular en vez de afiliado
         AFILIADO, PROSPECTO, PROVEEDOR, EMPLEADO, BENEFICIARIO, CARGA
+    }
+
+    public void validatePreferredAccount() {
+        long preferredCount = this.bancos.stream()
+                .filter(banco -> Boolean.TRUE.equals(banco.isCuentaPreferida()))
+                .count();
+
+        if (preferredCount > 1) {
+            throw new IllegalArgumentException("Only one bank account can be preferred.");
+        }
     }
 }
