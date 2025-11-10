@@ -43,7 +43,7 @@ public class RutGenerator {
     public static Run generarRutAleatorio(Genero genero) {
         int numeroRut = generarNumeroAleatorio();
         char digitoVerificador = calcularDigitoVerificador(numeroRut);
-        String rutCompleto = numeroRut + String.valueOf(digitoVerificador);
+        String rutCompleto = numeroRut + "-" + digitoVerificador;
         return new Run(rutCompleto, genero);
     }
 
