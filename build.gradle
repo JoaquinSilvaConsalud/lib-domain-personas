@@ -10,7 +10,7 @@ plugins {
 }
 
 group = 'cl.consalud'
-version = '0.0.4-SNAPSHOT'
+version = '0.0.5-SNAPSHOT'
 description = 'Clases de dominio Personas'
 
 wrapper {
