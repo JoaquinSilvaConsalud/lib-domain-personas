@@ -13,7 +13,7 @@ import java.util.Random;
 public class RutGenerator {
 
     private static final Random random = new SecureRandom();
-    private static final int MIN_RUT_NUMBER = 800_000;
+    private static final int MIN_RUT_NUMBER = 1_000_000;
     private static final int MAX_RUT_NUMBER = 30_000_000;
 
     public static void main(String[] args) {
