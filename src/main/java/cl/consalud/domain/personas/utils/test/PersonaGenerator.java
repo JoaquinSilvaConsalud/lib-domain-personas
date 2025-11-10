@@ -113,7 +113,7 @@ public class PersonaGenerator {
 
     public static Direccion makeDireccion() {
 
-        return new Direccion(Region.METROPOLITANA,
+        return new Direccion("Metropolitana",
                 faker.eldenRing().location(),
                 faker.address().streetName(),
                 faker.address().streetAddress());
