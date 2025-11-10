@@ -62,8 +62,9 @@ public class PersonaGenerator {
             certificaciones.add(makeValidCertificacion());
         }
 
-        for (int i = 0; i <= random.nextInt(1, 4); i++) {
-            bancos.add(makeValidBanco());
+        bancos.add(makeValidBanco(true));
+        for (int i = 0; i < random.nextInt(1, 4); i++) {
+            bancos.add(makeValidBanco(false));
         }
 
         var empleos = new ArrayList<Empleo>();
@@ -79,7 +80,7 @@ public class PersonaGenerator {
         var primNom = nombres.getFirst();
         String nombre = primNom.getNombres().getFirst();
 
-        contactos.add(new Email((nombre + "." + primNom.getApellidos().getFirst().texto() + "@fakeEmail.com")));
+        contactos.add(new Email(faker.internet().emailAddress()));
         contactos.add(new Telefono(faker.phoneNumber().phoneNumberInternational()));
 
         var nacionalidades = makeValidNacionalidades();
@@ -112,7 +113,7 @@ public class PersonaGenerator {
 
     public static Direccion makeDireccion() {
 
-        return new Direccion(chile.region().region(),
+        return new Direccion(Region.METROPOLITANA,
                 faker.eldenRing().location(),
                 faker.address().streetName(),
                 faker.address().streetAddress());
@@ -137,13 +138,12 @@ public class PersonaGenerator {
         return consentimiento;
     }
 
-    public static Banco makeValidBanco() {
+    public static Banco makeValidBanco(boolean esPreferida) {
         String numeroCuenta = generateAccountNumber();
         String nombreBanco = faker.company().name();
         String tipoCuenta = faker.options().option("Ahorros", "Corriente", "Plazo Fijo");
-        boolean cuentaPreferida = faker.random().nextBoolean();
 
-        return new Banco(numeroCuenta, nombreBanco, tipoCuenta, cuentaPreferida);
+        return new Banco(numeroCuenta, nombreBanco, tipoCuenta, esPreferida);
     }
 
     public static String generateAccountNumber() {
